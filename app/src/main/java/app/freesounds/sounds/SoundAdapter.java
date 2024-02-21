@@ -5,17 +5,18 @@ import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import app.freesounds.R;
 
-import android.widget.TextView;
 import android.widget.ImageView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 public class SoundAdapter extends Adapter<SoundViewHolder> {
-    private SoundRepository repository;
+    private final SoundRepository repository;
 
     @FunctionalInterface
     interface OnSoundSelected {
@@ -35,7 +36,7 @@ public class SoundAdapter extends Adapter<SoundViewHolder> {
     @NonNull
     @Override
     public SoundViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new SoundViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.sound_section_row_layout, parent, false));
     }
 
     @Override
@@ -45,11 +46,10 @@ public class SoundAdapter extends Adapter<SoundViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SoundViewHolder holder, int position) {
-        final var view = holder.getView();
+        final var soundIcon = (ImageView) holder.getView().findViewById(R.id.sound_icon);
 
-        view.setOnClickListener(v -> {
-            onSoundSelected.onSelect(repository.getSound(position));
-        });
+        soundIcon.setImageURI(Uri.parse(""));
+        soundIcon.setOnClickListener(v -> onSoundSelected.onSelect(repository.getSound(position)));
     }
 }
 

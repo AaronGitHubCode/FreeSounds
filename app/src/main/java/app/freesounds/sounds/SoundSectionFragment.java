@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +39,9 @@ public final class SoundSectionFragment extends Fragment {
             soundAdapter.setOnSoundSelected(sound -> {
                 final var fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.)
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.replace(R.id.fragment_container, new SoundDetailFragment(sound), "sound_detail_fragment");
+                fragmentTransaction.addToBackStack("sound_detail_fragment");
 
                 fragmentTransaction.commit();
             });
